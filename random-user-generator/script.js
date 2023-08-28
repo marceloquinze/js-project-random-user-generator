@@ -1,17 +1,24 @@
+// Fetch data from API using fetch API
 function getData() {
 	showSpinner();
 	const data = fetch('https://randomuser.me/api/')
+		// First, the API fetches results from endpoint.
+		// Use obj.json() to retrieve data
 		.then((res) => res.json())
+		// Then, gets actual data, passing it to displayUser below
 		.then((data) => displayUser(data.results[0]));
 }
 
+// Displaus user info
 function displayUser(user) {
+	// Sets background color based on gender
 	if (user.gender === 'female') {
 		document.body.style.backgroundColor = 'rebeccapurple';
 	} else {
 		document.body.style.backgroundColor = 'steelblue';
 	}
 
+	// Populates HTML
 	const div = document.querySelector('#user');
 	div.innerHTML = `
     <div class="flex justify-between">
@@ -41,11 +48,15 @@ function displayUser(user) {
 	hideSpinner();
 }
 
+// Show Spinner before data is retrieved
 function showSpinner() {
 	document.querySelector('.spinner').classList.remove('hidden');
 }
+
+// Hide Spinner after data has been retrieved
 function hideSpinner() {
 	document.querySelector('.spinner').classList.add('hidden');
 }
 
+// Event listener attached to Generate User button
 document.querySelector('#generate').addEventListener('click', getData);
